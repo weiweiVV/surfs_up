@@ -62,11 +62,10 @@ def temp_monthly():
 def stats(start=None, end=None):
     session = Session(engine)
     sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
-
+    
     if not end:
         results = session.query(*sel).\
-            filter(Measurement.date >= start).\
-            filter(Measurement.date <= end).all()
+            filter(Measurement.date >= start).all()
         temps = list(np.ravel(results))
         return jsonify(temps=temps)
 
